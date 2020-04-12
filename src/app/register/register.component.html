@@ -1,0 +1,25 @@
+<div class="signup-form pt-5">
+    <form [formGroup]="formData" class="from" (ngSubmit)="onSubmit()">
+		<h2>Register</h2>
+		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
+        <div  class="form-group" >
+			<div class="row">
+				<div class="col-sm-6"><input type="text" class="form-control" formControlName="first_name" placeholder="First Name"></div>
+				<div class="col-sm-6"><input type="text" class="form-control" formControlName="last_name" placeholder="Last Name"></div>
+			</div>        	
+        </div>
+        <div class="form-group">
+        	<input type="email" class="form-control" formControlName="email" placeholder="Email">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" formControlName="password" placeholder="Password">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" formControlName="confirm_password" placeholder="Confirm Password">
+        </div>        
+		<div class="form-group">
+            <button [disabled]="!formData.valid" type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+        </div>
+    </form>
+	<div class="text-center">Already have an account? <a routerLink="/login">Login</a></div>
+</div>
