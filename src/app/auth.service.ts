@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { Observable, throwError} from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 
 
@@ -22,10 +22,20 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   registerUser(user: User) {
-    return this.http.post(this._registerUrl, user, this.options);
+    return this.http.post(this._registerUrl, user, this.options).pipe(catchError(this.handleError));
   }
 
   loginUser(user: User) {
-    return this.http.post(this._loginUrl, user, this.options);
+    return this.http.post(this._loginUrl, user, this.options).pipe(catchError(this.handleError));
+  }
+
+  handleError(errorRes: HttpErrorResponse) {
+    let msg: string;
+    if (errorRes.status === 400 && errorRes.error) {
+      msg = errorRes.error;
+    } else {
+      msg = "Somthing went wrong! Try again !";
+    }
+    return throwError(msg);
   }
 }

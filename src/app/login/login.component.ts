@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { AlertService } from '../_alert';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,8 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   formData: FormGroup;
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService,
+              protected alertService: AlertService) { }
 
   ngOnInit(): void {
     this.formData = new FormGroup({
@@ -26,14 +28,9 @@ export class LoginComponent implements OnInit {
       this.auth.loginUser({
         email: this.formData.get('email').value,
         password: this.formData.get('password').value
-      }).subscribe((res: any)=> {
-        if (res.msg) {
-          console.log(res.msg);
-        } else {
-          console.log(res);
-          console.log("You are logged in!");
-        }
-      });
+      }).subscribe(
+        (data: any) => this.alertService.success('Welcome! '+data.name),
+        (error) => this.alertService.error(error));
     }
   }
 

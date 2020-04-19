@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { missMatch } from '../customvalidator/customvalidator.validator';
 import { AuthService } from '../auth.service'
+import { AlertService } from '../_alert';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,8 @@ import { AuthService } from '../auth.service'
 })
 export class RegisterComponent implements OnInit {
   formData: FormGroup;
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService,
+              protected alertService: AlertService) { }
 
   ngOnInit(): void {
     this.formData = new FormGroup({
@@ -34,11 +36,9 @@ export class RegisterComponent implements OnInit {
         name: userName,
         email: this.formData.get('email').value,
         password: this.formData.get('password').value
-      }).subscribe((res: any)=> {
-        if (res.msg) {
-          console.log(res.msg);
-        }
-      });
+      }).subscribe(
+        (data: any) => this.alertService.success(data.msg),
+        (error) => this.alertService.error(error));
     }
   }
 }
