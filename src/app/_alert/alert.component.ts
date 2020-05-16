@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Alert, AlertType } from './alert.model';
 import { AlertService } from './alert.service';
 
-@Component({ selector: 'alert', templateUrl: 'alert.component.html' })
+@Component({ selector: 'alert', templateUrl: 'alert.component.html', styleUrls: ['alert.component.css'] })
 export class AlertComponent implements OnInit, OnDestroy {
     @Input() id = 'default-alert';
     @Input() fade = true;
@@ -74,13 +74,13 @@ export class AlertComponent implements OnInit, OnDestroy {
     cssClass(alert: Alert) {
         if (!alert) return;
 
-        const classes = ['alert', 'alert-dismissable'];
+        const classes = ['alert-custom-container','alert-dismissable'];
                 
         const alertTypeClass = {
-            [AlertType.Success]: 'alert alert-success',
-            [AlertType.Error]: 'alert alert-danger',
-            [AlertType.Info]: 'alert alert-info',
-            [AlertType.Warning]: 'alert alert-warning'
+            [AlertType.Success]: 'alert-success',
+            [AlertType.Error]: 'alert-danger',
+            [AlertType.Info]: 'alert-info',
+            [AlertType.Warning]: 'alert-warning'
         }
 
         classes.push(alertTypeClass[alert.type]);
