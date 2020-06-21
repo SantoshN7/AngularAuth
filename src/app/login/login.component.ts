@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
         email: this.formData.get('email').value,
         password: this.formData.get('password').value
       }).subscribe(
-        (data: any) => this.alertService.success('Welcome! '+data.name),
+        (data: any) => { this.alertService.success('Welcome! Home');
+        localStorage.setItem('tken', data.token);
+      },
         (error) => this.alertService.error(error));
     }
   }

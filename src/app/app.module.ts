@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertModule } from './_alert';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { AlertModule } from './_alert';
     HttpClientModule,
     AlertModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

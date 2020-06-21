@@ -21,6 +21,14 @@ export class AuthService {
   private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
   constructor(private http: HttpClient) { }
 
+  isUserLoggedIn(): boolean {
+    return !! localStorage.getItem('tken');
+  }
+
+  logout() {
+    localStorage.removeItem('tken');
+  }
+
   registerUser(user: User) {
     return this.http.post(this._registerUrl, user, this.options).pipe(catchError(this.handleError));
   }
