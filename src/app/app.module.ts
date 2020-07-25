@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertModule } from './_alert';
 import { AuthGuard } from './auth.guard';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { AuthGuard } from './auth.guard';
     HttpClientModule,
     AlertModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

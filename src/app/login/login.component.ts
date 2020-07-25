@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { AlertService } from '../_alert';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,8 @@ import { AlertService } from '../_alert';
 })
 export class LoginComponent implements OnInit {
   formData: FormGroup;
-  constructor(private auth: AuthService,
+  constructor(private CookieService: CookieService,
+              private auth: AuthService,
               protected alertService: AlertService) { }
 
   ngOnInit(): void {
@@ -30,7 +32,7 @@ export class LoginComponent implements OnInit {
         password: this.formData.get('password').value
       }).subscribe(
         (data: any) => { this.alertService.success('Welcome! Home');
-        localStorage.setItem('tken', data.token);
+        this.CookieService.set('tken', data.token);
       },
         (error) => this.alertService.error(error));
     }
